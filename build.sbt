@@ -85,7 +85,7 @@ lazy val versions = new {
   val travisBranch = sys.env.getOrElse("TRAVIS_BRANCH", "")
 
   // All Twitter library releases are date versioned as YY.MM.patch
-  val twLibVersion = releaseVersion
+  val twLibVersion = "21.4.0"
 
   val agrona = "0.9.22"
   val commonsFileupload = "1.4"
