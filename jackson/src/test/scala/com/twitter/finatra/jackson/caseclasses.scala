@@ -6,14 +6,12 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.`type`.TypeReference
 import com.fasterxml.jackson.databind._
 import com.fasterxml.jackson.databind.annotation.{JsonDeserialize, JsonNaming}
-import com.fasterxml.jackson.databind.deser.std.NumberDeserializers.{
-  BigDecimalDeserializer,
-  NumberDeserializer
-}
+import com.fasterxml.jackson.databind.deser.std.NumberDeserializers.{BigDecimalDeserializer, NumberDeserializer}
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.scala.JsonScalaEnumeration
 import com.twitter.finatra.jackson.caseclass.SerdeLogging
+import com.twitter.finatra.json.annotations.NullValueAllowed
 import com.twitter.finatra.validation.constraints._
 import com.twitter.finatra.validation.{
   CommonMethodValidations,
@@ -24,8 +22,10 @@ import com.twitter.finatra.validation.{
 import com.twitter.inject.domain.WrappedValue
 import com.twitter.util.Time
 import com.twitter.{util => ctu}
+
 import javax.inject.Inject
 import org.joda.time.DateTime
+
 import scala.annotation.meta.param
 import scala.math.BigDecimal.RoundingMode
 
@@ -772,3 +772,7 @@ case class CaseClassShouldUseKebabCaseFromMixin(willThisGetTheRightCasing: Boole
 
 @JsonNaming
 case class UseDefaultNamingStrategy(thisFieldShouldUseDefaultPropertyNamingStrategy: Boolean)
+
+case class NullableField(@NullValueAllowed() value: String)
+
+case class NullableFieldDefault(@NullValueAllowed() value: String = "foo")
