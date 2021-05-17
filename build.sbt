@@ -4,7 +4,7 @@ import scoverage.ScoverageKeys
 concurrentRestrictions in Global += Tags.limit(Tags.Test, 1)
 
 // All Twitter library releases are date versioned as YY.MM.patch
-val releaseVersion = "21.5.0-SNAPSHOT"
+val releaseVersion = "21.5.0"
 
 lazy val buildSettings = Seq(
   version := releaseVersion,
@@ -230,13 +230,13 @@ lazy val publishSettings = Seq(
 )
 
 lazy val projectSettingNoTestDependencies = baseSettings ++ buildSettings ++ publishSettings ++ Seq(
-  organization := "com.twitter"
+  organization := "com.github.cerveada"
 )
 
 lazy val projectSettings = projectSettingNoTestDependencies ++ testDependenciesSettings
 
 lazy val baseServerSettings = baseSettings ++ buildSettings ++ publishSettings ++ Seq(
-  organization := "com.twitter",
+  organization := "com.github.cerveada",
   publishArtifact := false,
   publishLocal := {},
   publish := {},
@@ -338,7 +338,7 @@ lazy val root = (project in file("."))
   .settings(buildSettings)
   .settings(noPublishSettings)
   .settings(
-    organization := "com.twitter",
+    organization := "com.github.cerveada",
     moduleName := "finatra-root",
     unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject
       -- inProjects(benchmarks)
