@@ -13,7 +13,8 @@ lazy val buildSettings = Seq(
   scalaModuleInfo := scalaModuleInfo.value.map(_.withOverrideScalaVersion(true)),
   fork in Test := true, // We have to fork to get the JavaOptions
   javaOptions in Test ++= travisTestJavaOptions,
-  libraryDependencies += scalaCollectionCompat
+  libraryDependencies += scalaCollectionCompat,
+  resolvers += Resolver.mavenLocal
 )
 
 lazy val noPublishSettings = Seq(
@@ -179,13 +180,7 @@ lazy val publishSettings = Seq(
   publishArtifact in Compile := true,
   publishArtifact in Test := false,
   pomIncludeRepository := { _ => false },
-  publishTo := {
-    val nexus = "https://oss.sonatype.org/"
-    if (isSnapshot.value)
-      Some("snapshots" at nexus + "content/repositories/snapshots")
-    else
-      Some("releases" at nexus + "service/local/staging/deploy/maven2")
-  },
+  publishTo := Some(MavenCache("local-maven", file("/Users/abac720/.m2/repository"))),
   licenses := Seq("Apache 2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
   homepage := Some(url("https://github.com/twitter/finatra")),
   autoAPIMappings := true,
